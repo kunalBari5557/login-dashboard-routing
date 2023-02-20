@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Pagination from '@mui/material/Pagination';
@@ -28,6 +28,16 @@ const rows = [
 ];
 
 function Error() {
+    const [currentPage, setCurrentPage] = useState(1);
+    const rowsPerPage = 3;
+  
+    const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+      setCurrentPage(value);
+    };
+  
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
+    const displayedRows = rows.slice(startIndex, endIndex);
     return (
         <div style={{ display: "flex" }}>
             <Box
@@ -37,8 +47,8 @@ function Error() {
                     ml: 0
                 }}
             >
-                <h3 style={{ marginLeft: "-84rem" }}>Filters By Dates:</h3> <TextField select fullWidth label="Search" id="fullWidth" />
-                <h2 style={{ marginTop: "3rem", marginLeft: "-85rem" }} >Latest Runs</h2>
+                <h3 style={{ marginLeft: "-65rem" }}>Filters By Dates:</h3> <TextField select fullWidth label="Search" id="fullWidth" />
+                <h2 style={{ marginTop: "3rem", marginLeft: "-65rem" }} >Latest Runs</h2>
                 <TableContainer sx={{ mt: 5 }} component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
@@ -49,7 +59,7 @@ function Error() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows.map((row) => (
+                            {displayedRows.map((row) => (
                                 <TableRow
                                     key={row.sno}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -65,7 +75,13 @@ function Error() {
                     </Table>
                 </TableContainer>
                 <Stack sx={{ mt: "2rem", ml: "35rem" }} spacing={2}>
-                    <Pagination count={5} color="standard" />
+                    <Pagination color="standard"
+                     count={Math.ceil(rows.length / rowsPerPage)}
+                     page={currentPage}
+                     onChange={(event, value) => {
+                       setCurrentPage(value);
+                     }}
+                    />
                 </Stack>
             </Box>
 

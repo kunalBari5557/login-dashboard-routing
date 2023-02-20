@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Steppers from './Stepper';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -34,14 +34,25 @@ const rows = [
 type Props = {};
 
 const DefaultPage = (props: Props) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 3;
+
+  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setCurrentPage(value);
+  };
+
+  const startIndex = (currentPage - 1) * rowsPerPage;
+  const endIndex = startIndex + rowsPerPage;
+  const displayedRows = rows.slice(startIndex, endIndex);
+
   return (
     <div>
       <Box
         sx={{
-          width: "120%",
+          width: '120%',
           maxWidth: '100%',
           ml: 0,
-          mb: "-7rem"
+          mb: '-7rem'
         }}
       >
         <TextField
@@ -54,19 +65,19 @@ const DefaultPage = (props: Props) => {
         />
       </Box>
       <Steppers />
-      <h2 style={{ marginTop: "3rem", marginLeft: "-85rem" }} >Latest Runs</h2>
+      <h2 style={{ marginTop: '3rem', marginLeft: '-65rem' }}>Latest Runs</h2>
       <TableContainer sx={{ mt: 5 }} component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ fontWeight: "bold" }}>Date</TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>Step 1</TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>Step 2</TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>Step 3</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>Date</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>Step 1</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>Step 2</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>Step 3</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {displayedRows.map((row) => (
               <TableRow
                 key={row.date}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -77,13 +88,21 @@ const DefaultPage = (props: Props) => {
                 <TableCell align="left">{row.step1}</TableCell>
                 <TableCell align="left">{row.step2}</TableCell>
                 <TableCell align="left">{row.step3}</TableCell>
+             
+
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-      <Stack sx={{ mt: "2rem", ml: "35rem" }} spacing={2}>
-        <Pagination count={5} color="standard" />
+      <Stack sx={{ mt: "2rem", ml: "27rem" }} spacing={2}>
+        <Pagination color="standard" 
+            count={Math.ceil(rows.length / rowsPerPage)}
+            page={currentPage}
+            onChange={(event, value) => {
+              setCurrentPage(value);
+            }}
+        />
       </Stack>
     </div>
   );

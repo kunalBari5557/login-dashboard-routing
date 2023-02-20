@@ -33,20 +33,30 @@ function createData(
 }
 
 const rows = [
-    createData(1, 'Dharmik.Dalwadi@seaflux.tech'),
-    createData(2, 'Dharmik.Dalwadi@seaflux.tech'),
-    createData(3, 'Dharmik.Dalwadi@seaflux.tech'),
-    createData(4, 'Dharmik.Dalwadi@seaflux.tech'),
-    createData(5, 'Dharmik.Dalwadi@seaflux.tech'),
-    createData(6, 'Dharmik.Dalwadi@seaflux.tech'),
-    createData(7, 'Dharmik.Dalwadi@seaflux.tech'),
-    createData(8, 'Dharmik.Dalwadi@seaflux.tech'),
-    createData(9, 'Dharmik.Dalwadi@seaflux.tech'),
-    createData(10, 'Dharmik.Dalwadi@seaflux.tech'),
+    createData(1, 'kunal.aage@developer.tech'),
+    createData(2, 'kunal.aage@developer.tech'),
+    createData(3, 'kunal.aage@developer.tech'),
+    createData(4, 'kunal.aage@developer.tech'),
+    createData(5, 'kunal.aage@developer.tech'),
+    createData(6, 'kunal.aage@developer.tech'),
+    createData(7, 'kunal.aage@developer.tech'),
+    createData(8, 'kunal.aage@developer.tech'),
+    createData(9, 'kunal.aage@developer.tech'),
+    createData(10, 'kunal.aage@developer.tech'),
 ];
 
 export default function UsersTable() {
     const classes = useStyles();
+    const [currentPage, setCurrentPage] = React.useState(1);
+    const rowsPerPage = 3;
+  
+    const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+      setCurrentPage(value);
+    };
+  
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
+    const displayedRows = rows.slice(startIndex, endIndex);
     return (
         <>
             <div style={{ marginLeft: "80rem" }}>
@@ -63,7 +73,7 @@ export default function UsersTable() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
+                        {displayedRows.map((row) => (
                             <TableRow
                                 key={row.sno}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -80,7 +90,13 @@ export default function UsersTable() {
                 </Table>
             </TableContainer>
             <Stack sx={{ mt: "2rem", ml: "35rem" }} spacing={2}>
-                <Pagination count={10} color="standard" />
+                <Pagination color="standard" 
+                 count={Math.ceil(rows.length / rowsPerPage)}
+                 page={currentPage}
+                 onChange={(event, value) => {
+                   setCurrentPage(value);
+                 }}
+                />
             </Stack>
         </>
     );
