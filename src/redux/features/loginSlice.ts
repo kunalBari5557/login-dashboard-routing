@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState: State = {
+export const initialState: State = {
   email: "",
   password: "",
   isButtonDisabled: true,

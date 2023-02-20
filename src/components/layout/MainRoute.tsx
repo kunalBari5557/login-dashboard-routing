@@ -9,9 +9,9 @@ function MainRoute() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Login />} />
-                {/* <Route path="/" element={<MainLayout />} >
+                <Route path="/" element={<MainLayout />} >
                     {routes}
-                </Route > */}
+                </Route >
                 {/* <Route path="/dashboard" element={<DefaultPage />} /> */}
                 {/* <Route path="/login" element={<Login />} /> */}
             </Routes>

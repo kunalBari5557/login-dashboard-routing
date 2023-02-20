@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
@@ -14,6 +14,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import { initialState } from '../../redux/features/loginSlice';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -34,19 +35,21 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     })
 );
-const initialState: State = {
-    email: "",
-    password: "",
-    isButtonDisabled: true,
-    helperText: "",
-    isError: false,
-};
+// const initialState: State = {
+//     email: "",
+//     password: "",
+//     isButtonDisabled: true,
+//     helperText: "",
+//     isError: false,
+// };
 
 const Login = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const classes = useStyles();
+
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
 
     const loginState = useSelector((state: RootState) => state.loginState)
     console.log("loginState", loginState)
@@ -79,12 +82,13 @@ const Login = () => {
         } else {
             dispatch(setIsButtonDisabled(true));
         }
-    }, [loginState.email, loginState.password]);
+    }, [dispatch, loginState.email, loginState.password]);
 
-    const handleLogin = () => {
+    const handleLogin = (e: any) => {
+        console.log(e)
         if (loginState.email === 'kunal.aage@seaflux.tech' && loginState.password === 'password') {
             dispatch(loginSuccess('Login Successfully'));
-            // navigate("/dashboard")
+            navigate("/dashboard")
         } else {
             dispatch(loginFailed('Incorrect email or password'));
         }
