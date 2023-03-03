@@ -24,11 +24,11 @@ const Topbar = () => {
         color: colorConfigs.topbar.color
       }}
     >
-      <Toolbar>
-        <Typography variant="h6">
+      {/* <Toolbar> */}
+        {/* <Typography variant="h6">
           React sidebar with dropdown
-        </Typography>
-      </Toolbar>
+        </Typography> */}
+      {/* </Toolbar> */}
     </AppBar>
   );
 };

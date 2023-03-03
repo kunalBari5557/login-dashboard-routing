@@ -89,7 +89,7 @@ export default function UsersTable() {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Stack sx={{ mt: "2rem", ml: "35rem" }} spacing={2}>
+            <Stack sx={{ mt: "2rem", ml: "25rem" }} spacing={2}>
                 <Pagination color="standard" 
                  count={Math.ceil(rows.length / rowsPerPage)}
                  page={currentPage}

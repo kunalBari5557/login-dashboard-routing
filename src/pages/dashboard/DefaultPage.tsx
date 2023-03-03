@@ -99,9 +99,7 @@ const DefaultPage = (props: Props) => {
         <Pagination color="standard" 
             count={Math.ceil(rows.length / rowsPerPage)}
             page={currentPage}
-            onChange={(event, value) => {
-              setCurrentPage(value);
-            }}
+            onChange={handlePageChange}
         />
       </Stack>
     </div>
