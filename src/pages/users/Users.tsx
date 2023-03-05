@@ -59,7 +59,7 @@ export default function UsersTable() {
     const displayedRows = rows.slice(startIndex, endIndex);
     return (
         <>
-            <div style={{ marginLeft: "80rem" }}>
+            <div style={{ marginLeft: "60rem" }}>
                 <DialogBox />
             </div><br></br>
             <TableContainer component={Paper}>
