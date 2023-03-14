@@ -12,6 +12,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { makeStyles } from '@material-ui/core/styles';
+import EditableRow from './EditableRow';
 
 const useStyles = makeStyles(() => ({
     ul: {
@@ -82,7 +83,7 @@ export default function UsersTable() {
                                     {row.sno}
                                 </TableCell>
                                 <TableCell align="left">{row.emailAddress}</TableCell>
-                                <TableCell align="left"><BorderColorTwoToneIcon /></TableCell>
+                                <TableCell align="left"><EditableRow /></TableCell>
                                 <TableCell align="left"><DeleteIcon /></TableCell>
                             </TableRow>
                         ))}
