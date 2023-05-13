@@ -5,18 +5,25 @@ import sizeConfigs from "../../configs/sizeConfigs";
 import appRoutes from "../../routes/appRoutes";
 import SidebarItem from "./SidebarItem";
 import SidebarItemCollapse from "./SidebarItemCollapse";
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import React from "react";
 
-const Sidebar = () => {
+interface SidebarProps {
+  open: boolean;
+  toggleSidebar: () => void;
+}
+const Sidebar = ({ open, toggleSidebar }: SidebarProps) => {
   const navigate = useNavigate();
   const Logout = (): void => {
-    navigate("/")
+    navigate("/");
   };
 
   return (
     <Drawer
       variant="permanent"
+      open={open}
       sx={{
         width: sizeConfigs.sidebar.width,
         flexShrink: 0,
@@ -25,41 +32,47 @@ const Sidebar = () => {
           boxSizing: "border-box",
           borderRight: "0px",
           backgroundColor: colorConfigs.sidebar.bg,
-          color: colorConfigs.sidebar.color
-        }
+          color: colorConfigs.sidebar.color,
+        },
       }}
     >
       <List disablePadding>
         <Toolbar sx={{ marginBottom: "20px" }}>
-          <Stack
-            sx={{ width: "100%" }}
-            direction="row"
-            justifyContent="center"
-          >
+          <Stack sx={{ width: "100%" }} direction="row" justifyContent="center">
             <Avatar src={assets.images.logo} />
+
             {/* <Assets /> */}
           </Stack>
         </Toolbar>
-        {appRoutes.map((route, index) => (
-          route.sidebarProps ? (
-            route.child ? (
-              <SidebarItemCollapse item={route} key={index} />
-            ) : (
-              <SidebarItem item={route} key={index} />
+        {appRoutes.map(
+          (route, index) =>
+            route.sidebarProps && (
+              <React.Fragment key={index}>
+                {route.child ? (
+                  <SidebarItemCollapse item={route} />
+                ) : (
+                  <SidebarItem item={route} />
+                )}
+              </React.Fragment>
             )
-          ) : null
-        ))}
+        )}
       </List>
-      <Button onClick={Logout} sx={{
-        marginTop: "38rem",
-        color: "white",
-        fontWeight: "bold",
-        backfroundColor: "white",
-        '&:hover': {
-          backgroundColor: 'gray',
-          opacity: [0.9, 0.8, 0.7],
-        },
-      }}><h2>Logout</h2><ExitToAppIcon sx={{ fontSize: 22 }} /></Button>
+      <Button
+        onClick={Logout}
+        sx={{
+          marginTop: "auto",
+          color: "white",
+          fontWeight: "bold",
+          backgroundColor: colorConfigs.sidebar.bg,
+          "&:hover": {
+            backgroundColor: colorConfigs.sidebar.hoverBg,
+          },
+        }}
+        variant="contained"
+        startIcon={<ExitToAppIcon />}
+      >
+        Logout
+      </Button>
     </Drawer>
   );
 };

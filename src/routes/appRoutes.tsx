@@ -5,6 +5,7 @@ import Users from "../pages/users/Users";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import Login from "../pages/login/login";
 
 const appRoutes: RouteType[] = [
   {
@@ -41,4 +42,13 @@ const appRoutes: RouteType[] = [
   },
 ];
 
+export const authData = [
+  {
+      path: '/',
+      element: <Login />,
+      state: "login",
+  },
+]
+
 export default appRoutes;
+

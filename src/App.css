@@ -7,9 +7,68 @@
   pointer-events: none;
 }
 
+.menu_block{
+  display: none;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+@media (max-width:1199px){
+  .logo_sec{
+    display: none;
+  }
+  .menu_block{
+    display: block;
+  }
+  .sidebar_wrap {
+      top: 100px;
+      left: -320px;
+      transition: all 0.3s ease;
+      z-index: 1;
+  }
+  .cm_overflow .sidebar_wrap{
+    left: 0;
+  }
+  .main_content {
+      padding-left: 0;
+  }
+  .header_profile_img p{
+    display: none;
+  }
+  .header_profile_img span{
+    display: none;
+  }
+  .header_logout a span{
+    display: none;
+  }
+  .header_logout a{
+    padding: 10px 11px;
+  }
+
+  .student_wrap {
+      padding: 27px 20px 20px 20px;
+  }
+  .student_tab_block .nav-item .nav-link {
+      font-size: 22px;
+      padding: 15px 45px;
+  }
+  .profile_img_block .profile_img {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+  }
+  
+  .sibling_list_section .student_wrap{
+    margin-top: 60px;
+    padding: 0 ;
+  }
+
+  .admin_ic3{
+    display: none;
   }
 }
 

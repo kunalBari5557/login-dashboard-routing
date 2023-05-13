@@ -1,34 +1,57 @@
+import MenuIcon from "@mui/icons-material/Menu";
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import colorConfigs from "../../configs/colorConfigs";
 import sizeConfigs from "../../configs/sizeConfigs";
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import DirectionsIcon from '@mui/icons-material/Directions';
+import { useState } from "react";
 
-const Topbar = () => {
+interface TopbarProps {
+  toggleSidebar: () => void;
+  sidebarOpen: boolean;
+}
+
+const Topbar = ({ toggleSidebar, sidebarOpen }: TopbarProps) => {
+  const [active, setActive] = useState(false);
+
+  const toggleClass = () => {
+    setActive(!active);
+    document.documentElement.classList.toggle("cm_overflow");
+    toggleSidebar();
+  };
+
   return (
     <AppBar
       position="fixed"
       sx={{
-        width: `calc(100% - ${sizeConfigs.sidebar.width})`,
-        ml: sizeConfigs.sidebar.width,
+        width: sidebarOpen
+          ? `calc(100% - ${sizeConfigs.sidebar.width})`
+          : "100%",
+        marginLeft: sidebarOpen ? sizeConfigs.sidebar.width : 0,
         boxShadow: "unset",
         backgroundColor: colorConfigs.topbar.bg,
-        color: colorConfigs.topbar.color
+        color: colorConfigs.topbar.color,
       }}
     >
-      {/* <Toolbar> */}
-        {/* <Typography variant="h6">
+      {/* <Toolbar sx={{ml:"18rem"}}>
+        <MenuIcon className="menu_block" onClick={toggleClass} />
+        <Typography variant="h6">
           React sidebar with dropdown
-        </Typography> */}
-      {/* </Toolbar> */}
+        </Typography>
+      </Toolbar> */}
+      {sidebarOpen ? (
+        <Toolbar>
+          <MenuIcon
+            sx={{ justifyContent: "flex-start" }}
+            className="menu_block"
+            onClick={toggleClass}
+          />
+          <Typography variant="h6">React sidebar with dropdown</Typography>
+        </Toolbar>
+      ) : (
+        <Toolbar sx={{ ml: "18rem" }}>
+          <MenuIcon className="menu_block" onClick={toggleClass} />
+          <Typography variant="h6">React sidebar with dropdown</Typography>
+        </Toolbar>
+      )}
     </AppBar>
   );
 };
